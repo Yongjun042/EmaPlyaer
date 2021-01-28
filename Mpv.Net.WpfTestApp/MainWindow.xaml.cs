@@ -30,7 +30,7 @@ namespace Mpv.Net.WpfTestApp
         private const int totalnum = 66;
         private string[] fileNames = new string[totalnum];
         private string[] filePaths = new string[totalnum];
-        private int[] stoneNum = {13,19,23,45,49};
+        private int[] stoneNum = { 13, 19, 23, 45, 49 };
         private int videoNum = 0;
         private int choice1 = 0;
         private string title = "EmaPlayer";
@@ -105,7 +105,7 @@ namespace Mpv.Net.WpfTestApp
 
         private void Play_Ema(object sender, EventArgs e)
         {
-            if(!((EventBoolArgs)e).ebool)
+            if (!((EventBoolArgs)e).ebool)
             {
                 return;
             }
@@ -165,10 +165,16 @@ namespace Mpv.Net.WpfTestApp
                     break;
                 case 19:
                     choice1 = r.Next(0, 2);
-                    videoNum = ShowMemory();
+                    videoNum = 21 + choice1;
                     break;
                 case 23:
                     choice1 = r.Next(2, 4);
+                    videoNum = 23 + choice1;
+                    break;
+                case 21:
+                case 22:
+                case 25:
+                case 26:
                     videoNum = ShowMemory();
                     break;
                 case 27:
@@ -216,7 +222,7 @@ namespace Mpv.Net.WpfTestApp
                     videoNum = r.Next(47, 49);
                     break;
                 case 43:
-                    if(isStoneChecked == true)
+                    if (isStoneChecked == true)
                     {
                         if (isCreditChecked == true)
                         {
@@ -239,7 +245,7 @@ namespace Mpv.Net.WpfTestApp
                 case 48:
                 case 51:
                 case 52:
-                    if(isCreditChecked == true)
+                    if (isCreditChecked == true)
                     {
                         videoNum = IsHidden(5);
                     }
@@ -262,9 +268,9 @@ namespace Mpv.Net.WpfTestApp
         }
         private async void CheckStone()
         {
-            if (Array.Exists(stoneNum, i=> i.Equals(videoNum)))
+            if (Array.Exists(stoneNum, i => i.Equals(videoNum)))
             {
-                await Task.Delay(5000);
+                await Task.Delay(10000);
                 Player.PlayNext();
             }
         }
@@ -273,7 +279,7 @@ namespace Mpv.Net.WpfTestApp
         {
             int result = 27;
             //decide he, she
-            if(r.Next(0,6) ==3)
+            if (r.Next(0, 6) == 3)
             {
                 result += 4;
             }
