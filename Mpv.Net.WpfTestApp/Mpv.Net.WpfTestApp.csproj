@@ -4,10 +4,46 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <AssemblyName>EmaPlayer</AssemblyName>
+    <RootNamespace>EmaPlayer</RootNamespace>
+    <ApplicationIcon>ema.ico</ApplicationIcon>
+    <SignAssembly>false</SignAssembly>
+    <Version>0.1.0</Version>
+    <Authors>Yongjun</Authors>
+    <Company />
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Source\ema-small.png" />
+    <None Remove="Source\ema.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Mpv.Net.Wpf\Mpv.Net.Wpf.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Source\ema-small.png" />
+    <Resource Include="Source\ema.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

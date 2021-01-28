@@ -5,12 +5,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mpv="clr-namespace:Mpv.Net.Wpf;assembly=Mpv.Net.Wpf"
-    Title="MainWindow"
+    Title="{Binding WindowTitle, UpdateSourceTrigger=PropertyChanged}"
     Closing="Window_Closing"
     Width="800"
     Height="450"
     mc:Ignorable="d">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -18,20 +22,38 @@
         </Grid.RowDefinitions>
         <!-- Main menu for file selection -->
         <Menu>
-            <MenuItem Header="File">
+            <MenuItem Header="Folder">
                 <MenuItem
                     Click="MenuItem_Click"
-                    Header="Load file..." />
+                    Header="Load folder..." />
+            </MenuItem>
+            <MenuItem Header="About">
+                <MenuItem
+                    Click="MenuItem_Click_1"
+                    Header="About" />
             </MenuItem>
         </Menu>
         <!-- Mpv controls. Display is the video output -->
         <mpv:MpvDisplay
             x:Name="Display"
-            Grid.Row="1" />
+            Grid.Row="1" 
+            Grid.ColumnSpan="2"/>
         <!-- Player controller. Main interaction -->
         <mpv:MpvPlayer
             x:Name="Player"
             Grid.Row="2"
+              Grid.Column="0"
             Display="{Binding ElementName=Display}" />
+        <Grid Grid.Row="2"
+              Grid.Column="1">
+            <StackPanel Margin="5">
+                <CheckBox Name ="StoneSkip" Checked="StoneSkipChanged" Unchecked="StoneSkipChanged" >
+                    비석 스킵
+                </CheckBox>
+                <CheckBox Name ="CreditSkip" Checked="CreditSkipChanged" Unchecked="CreditSkipChanged">
+                    크레딧 스킵
+                </CheckBox>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

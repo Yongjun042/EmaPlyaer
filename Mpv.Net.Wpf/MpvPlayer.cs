@@ -8,11 +8,20 @@ namespace Mpv.Net.Wpf
     /// <summary>
     /// Mpv Player controller. Main Component
     /// </summary>
+    public class EventBoolArgs : System.EventArgs
+    {
+        public bool ebool;
+        public EventBoolArgs(bool ebool)
+        {
+            this.ebool = ebool;
+        }
+    }
     public sealed class MpvPlayer : Control, IDisposable
     {
         private Mpv.NET.Player.MpvPlayer _player;
         private readonly Locker _locker;
 
+        private EventBoolArgs cont = new EventBoolArgs(true);
         public MpvDisplay Display
         {
             get { return (MpvDisplay)GetValue(DisplayProperty); }
@@ -38,6 +47,7 @@ namespace Mpv.Net.Wpf
             if (_player != null)
             {
                 _player.PositionChanged -= _player_PositionChanged;
+                cont.ebool = false;
                 _player.Stop();
                 _player.Dispose();
                 _player = null;
@@ -66,8 +76,10 @@ namespace Mpv.Net.Wpf
             try
             {
                 _player = new NET.Player.MpvPlayer(Display.DisplayHandle);
-                _player.AutoPlay = false;
+                _player.AutoPlay = true;
                 _player.PositionChanged += _player_PositionChanged;
+                _player.MediaUnloaded += WhenUnloaded;
+                cont.ebool = true;
             }
             catch (NET.Player.MpvPlayerException)
             {
@@ -79,6 +91,7 @@ namespace Mpv.Net.Wpf
         {
             if (_player != null)
             {
+                cont.ebool = true;
                 _player?.Stop();
                 _locker.PerformLockAction(() =>
                 {
@@ -93,7 +106,7 @@ namespace Mpv.Net.Wpf
                 System.Threading.Thread.Sleep(100);
                 _player.Load(fileName);
                 System.Threading.Thread.Sleep(100);
-                GetChapters();
+                //GetChapters();
                 GetAudioAndSubtitles();
             }
         }
@@ -190,6 +203,13 @@ namespace Mpv.Net.Wpf
 
         public void Stop()
         {
+            cont.ebool = false;
+            _player?.Stop();
+        }
+
+        public void PlayNext()
+        {
+            cont.ebool = true;
             _player?.Stop();
         }
 
@@ -216,6 +236,7 @@ namespace Mpv.Net.Wpf
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
+            cont.ebool = false;
             _player?.Stop();
         }
 
@@ -253,5 +274,13 @@ namespace Mpv.Net.Wpf
                 }
             });
         }
+
+
+        public event EventHandler MediaUnloaded;
+        public void WhenUnloaded(object sender, EventArgs e)
+        {
+            MediaUnloaded?.Invoke(this, cont);
+        }
+
     }
 }
