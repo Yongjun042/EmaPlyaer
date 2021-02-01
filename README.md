@@ -52,6 +52,7 @@ If the Choice scene get played, it will play next scene in any circumstances(exc
 
 
 ![image](https://drive.google.com/uc?export=view&id=1yqVSVUVGZkdMEdluhDBLdOCL7THRZ1Jt)
+
 선택지 루트를 미리 정하거나 히드 트랙의 확률을 조정할 수 있습니다.
 You can choose route or adjust the probability of hidden track.
 
