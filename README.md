@@ -6,7 +6,7 @@
 초기 버전이라 버그가 많습니다.
 
 ## 설치방법
-[링크](https://github.com/Yongjun042/EmaPlayer/releases/tag/v0.3.0)에서 Emaplayer.7z을 다운받아 압축을 해제합니다.
+[링크](https://github.com/Yongjun042/EmaPlayer/releases/tag/v0.3.2)에서 Emaplayer.7z을 다운받아 압축을 해제합니다.
 
 [링크](https://sourceforge.net/projects/mpv-player-windows/files/libmpv/) 에서 mpv-dev-x86_64....7z을 다운받습니다.
 해당 압축파일 안에 있는 mpv-1.dll파일을 조금전에 압축해제한 Emaplayer 폴더에 넣습니다.
@@ -46,5 +46,3 @@ MakeMKV실행 후 좌상단의 File-Backup을 이용하시면 됩니다.(Decrypt
 ###
 아이콘 제작자 [Freepik](https://www.freepik.com) from [Flaticon](https://www.flaticon.com/kr/)
 Mpv.Net.Wpf 사용
-
-fork from [https://github.com/webmaster442/Mpv.Net.Wpf]
