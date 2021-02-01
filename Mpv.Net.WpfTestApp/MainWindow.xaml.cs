@@ -6,8 +6,9 @@ using System.IO;
 using System;
 using Mpv.Net.Wpf;
 using System.Windows.Threading;
+using EmaPlayer;
 
-namespace Mpv.Net.WpfTestApp
+namespace EmaPlayer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -17,15 +18,22 @@ namespace Mpv.Net.WpfTestApp
         public MainWindow()
         {
             InitializeComponent();
-            this.Title = title;
             for (int i = 0; i < totalnum; i++)
             {
                 fileNames[i] = i.ToString().PadLeft(5, '0') + ".m2ts";
             }
             Player.MediaUnloaded += new EventHandler(Play_Ema);
-
             CreditSkip.IsChecked = EmaPlayer.Settings.Default.CreditSkip;
             StoneSkip.IsChecked = EmaPlayer.Settings.Default.StoneSkip;
+            SelectStone.Content = EmaPlayer.Properties.Resources.SelectStone;
+            CreditSkip.Content = EmaPlayer.Properties.Resources.CreditSkip;
+            StoneSkip.Content = EmaPlayer.Properties.Resources.StoneSkip;
+            MenuFile.Header = EmaPlayer.Properties.Resources.File;
+            OpenFolder.Header = EmaPlayer.Properties.Resources.OpenFolder;
+            MenuAbout.Header = EmaPlayer.Properties.Resources.About;
+            MenuAbout2.Header = EmaPlayer.Properties.Resources.About;
+            title = EmaPlayer.Properties.Resources.Title;
+            this.Title = title;
         }
         private const int totalnum = 66;
         private string[] fileNames = new string[totalnum];
@@ -62,6 +70,7 @@ namespace Mpv.Net.WpfTestApp
                 videoNum = IsHidden(5);
                 Player.LoadFile(filePaths[videoNum]);
                 this.Title = title + " - " + filePaths[videoNum];
+                SeekbarTime();
             }
         }
 
@@ -119,13 +128,14 @@ namespace Mpv.Net.WpfTestApp
                 case 8:
                 case 9:
                 case 10:
-                    //밤의인업 히든
+                    //로랑신사 
                     videoNum = IsHidden(11);
                     break;
                 case 11:
+                    //인업
                     if (isStoneChecked == true)
                     {
-                        videoNum = r.Next(17, 19);
+                        videoNum = 17 + WhichStone(1);
                     }
                     else
                     {
@@ -133,7 +143,7 @@ namespace Mpv.Net.WpfTestApp
                     }
                     break;
                 case 13:
-                    videoNum = r.Next(15, 17);
+                    videoNum = 15 + WhichStone(1);
                     break;
                 case 15:
                     videoNum = 17;
@@ -144,7 +154,7 @@ namespace Mpv.Net.WpfTestApp
                 case 17:
                     if (isStoneChecked == true)
                     {
-                        choice1 = r.Next(0, 2);
+                        choice1 = WhichStone(2);
                         videoNum = ShowMemory();
                     }
                     else
@@ -155,7 +165,7 @@ namespace Mpv.Net.WpfTestApp
                 case 18:
                     if (isStoneChecked == true)
                     {
-                        choice1 = r.Next(2, 4);
+                        choice1 = 2+ WhichStone(2);
                         videoNum = ShowMemory();
                     }
                     else
@@ -164,29 +174,32 @@ namespace Mpv.Net.WpfTestApp
                     }
                     break;
                 case 19:
-                    choice1 = r.Next(0, 2);
+                    choice1 = WhichStone(2);
                     videoNum = 21 + choice1;
                     break;
                 case 23:
-                    choice1 = r.Next(2, 4);
+                    choice1 = 2+ WhichStone(2);
                     videoNum = 23 + choice1;
                     break;
                 case 21:
                 case 22:
                 case 25:
                 case 26:
+                    //2번째 비석 석택
                     videoNum = ShowMemory();
                     break;
                 case 27:
                 case 28:
                 case 29:
                 case 30:
+                    //소녀의 기억
                     videoNum = 35;
                     break;
                 case 31:
                 case 32:
                 case 33:
                 case 34:
+                    //소년의 기억
                     videoNum = 36;
                     break;
                 case 35:
@@ -219,7 +232,7 @@ namespace Mpv.Net.WpfTestApp
                     }
                     break;
                 case 45:
-                    videoNum = r.Next(47, 49);
+                    videoNum = 47 + WhichStone(3);
                     break;
                 case 43:
                     if (isStoneChecked == true)
@@ -239,7 +252,7 @@ namespace Mpv.Net.WpfTestApp
                     }
                     break;
                 case 49:
-                    videoNum = r.Next(51, 53);
+                    videoNum = 51 + WhichStone(1);
                     break;
                 case 47:
                 case 48:
@@ -265,6 +278,7 @@ namespace Mpv.Net.WpfTestApp
                 Title = title + " - " + filePaths[videoNum];
             });
             CheckStone();
+            SeekbarTime();
         }
         private async void CheckStone()
         {
@@ -272,6 +286,17 @@ namespace Mpv.Net.WpfTestApp
             {
                 await Task.Delay(10000);
                 Player.PlayNext();
+            }
+
+        }
+
+        private async void SeekbarTime()
+        {
+            int count = 0;
+            while (Player.GetTotalTime() == 0)
+            {
+                await Task.Delay(500);
+                count++;
             }
         }
 
@@ -289,7 +314,8 @@ namespace Mpv.Net.WpfTestApp
 
         private int IsHidden(int n)
         {
-            if (r.Next(0, 1000) == 8)
+            int a = r.Next(0, 1000);
+            if (a<Settings.Default.Hidden)
             {
                 return n + 1;
             }
@@ -299,12 +325,45 @@ namespace Mpv.Net.WpfTestApp
             }
         }
 
+        private int WhichStone(int a)
+        {
+            int n;
+            if (Settings.Default.Random)
+            {
+                n = r.Next(0, 2);
+            }
+            else
+            {
+                switch(a)
+                {
+                    case 1:
+                        n = Settings.Default.Stone1? 0 : 1;
+                        break;
+                    case 2:
+                        n = Settings.Default.Stone2 ? 0 : 1;
+                        break;
+                    case 3:
+                        n = Settings.Default.Stone3 ? 0 : 1;
+                        break;
+                    default:
+                        n = 0;
+                        break;
+                }
+            }
+            return n;
+        }
+
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             About aboutWindow = new About();
             aboutWindow.ShowDialog();
         }
 
+        private void SelectStone_Click(object sender, RoutedEventArgs e)
+        {
+            Choice choiceWindow = new Choice();
+            choiceWindow.ShowDialog();
+        }
     }
 
 }

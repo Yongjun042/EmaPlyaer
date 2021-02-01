@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Mpv.Net.WpfTestApp
+namespace EmaPlayer
 {
     /// <summary>
     /// Interaction logic for About.xaml
@@ -20,6 +20,11 @@ namespace Mpv.Net.WpfTestApp
         public About()
         {
             InitializeComponent();
+            Title = EmaPlayer.Properties.Resources.About;
+            AboutH1.Text = EmaPlayer.Properties.Resources.Title;
+            AboutInfo.Text = EmaPlayer.Properties.Resources.About1;
+            closeButton.Content = EmaPlayer.Properties.Resources.Close;
+
         }
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {

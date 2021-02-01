@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="Mpv.Net.WpfTestApp.MainWindow"
+    x:Class="EmaPlayer.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,15 +22,17 @@
         </Grid.RowDefinitions>
         <!-- Main menu for file selection -->
         <Menu>
-            <MenuItem Header="Folder">
+            <MenuItem Name="MenuFile" Header="폴더">
                 <MenuItem
+                    Name="OpenFolder"
                     Click="MenuItem_Click"
-                    Header="Load folder..." />
+                    Header="폴더 열기..." />
             </MenuItem>
-            <MenuItem Header="About">
+            <MenuItem Name="MenuAbout" Header="정보">
                 <MenuItem
+                    Name="MenuAbout2"
                     Click="MenuItem_Click_1"
-                    Header="About" />
+                    Header="정보" />
             </MenuItem>
         </Menu>
         <!-- Mpv controls. Display is the video output -->
@@ -50,9 +52,10 @@
                 <CheckBox Name ="StoneSkip" Checked="StoneSkipChanged" Unchecked="StoneSkipChanged" >
                     비석 스킵
                 </CheckBox>
-                <CheckBox Name ="CreditSkip" Checked="CreditSkipChanged" Unchecked="CreditSkipChanged">
+                <CheckBox Name ="CreditSkip" Checked="CreditSkipChanged" Unchecked="CreditSkipChanged" Margin="0,4,0,4">
                     크레딧 스킵
                 </CheckBox>
+                <Button Name="SelectStone" Click="SelectStone_Click">선택지</Button>
             </StackPanel>
         </Grid>
     </Grid>

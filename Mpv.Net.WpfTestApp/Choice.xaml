@@ -1,0 +1,49 @@
+﻿<Window x:Class="EmaPlayer.Choice"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmaPlayer"
+        mc:Ignorable="d"
+        Title="선택지" Height="228" Width="200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+        <GroupBox x:Name="stoneBox" MaxWidth="180" MaxHeight="200">
+            <GroupBox.Header>
+                <CheckBox x:Name="isRandom" Content="수동선택" Checked="isRandom_Changed" Unchecked="isRandom_Changed"/>
+            </GroupBox.Header>
+            <StackPanel x:Name="stoneList">
+                <StackPanel Orientation="Horizontal">
+                    <Label Name="stonelabel1">비석1</Label>
+                    <RadioButton x:Name="stone1L" GroupName="stone1" Content="좌←" VerticalContentAlignment="Center"/>
+                    <RadioButton x:Name="stone1R" GroupName="stone1" Content="우→" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Name="stonelabel2">비석2</Label>
+                    <RadioButton x:Name="stone2L" GroupName="stone2" Content="좌←" VerticalContentAlignment="Center"/>
+                    <RadioButton x:Name="stone2R" GroupName="stone2" Content="우→" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Name="stonelabel3">비석3</Label>
+                    <RadioButton x:Name="stone3L" GroupName="stone3" Content="좌←" VerticalContentAlignment="Center"/>
+                    <RadioButton x:Name="stone3R" GroupName="stone3" Content="우→" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox x:Name="Hiddengroup" Header="히든 확률" Grid.Row="1" MaxWidth="180" MaxHeight="40">
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="Hidden" Width="40" PreviewTextInput="Hidden_PreviewTextInput"/>
+                <TextBlock x:Name="HiddenText">‰ (기본 1, 최대 1000)</TextBlock>
+            </StackPanel>
+        </GroupBox>
+        <Button x:Name="SaveButton" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Width="100" Click="Button_Click" Margin="0,10,0,0">저장</Button>
+    </Grid>
+</Window>
