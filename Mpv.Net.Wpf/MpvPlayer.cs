@@ -113,12 +113,12 @@ namespace Mpv.Net.Wpf
 
         public double GetTotalTime()
         {
-            double ret =0;
+            double ret = 0;
             _locker.PerformLockAction(() =>
             {
                 if (GetTemplateChild("PART_Seek") is Slider seek)
                 {
-                        seek.Maximum = _player.Duration.TotalSeconds;
+                    seek.Maximum = _player.Duration.TotalSeconds;
                     ret = seek.Maximum;
                 }
             });

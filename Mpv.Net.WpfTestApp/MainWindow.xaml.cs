@@ -7,6 +7,7 @@ using System;
 using Mpv.Net.Wpf;
 using System.Windows.Threading;
 using EmaPlayer;
+using System.Windows.Input;
 
 namespace EmaPlayer
 {
@@ -364,6 +365,48 @@ namespace EmaPlayer
             Choice choiceWindow = new Choice();
             choiceWindow.ShowDialog();
         }
+
+        private void Window_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                if (this.WindowState != WindowState.Maximized)
+                {
+                    this.WindowStyle = WindowStyle.None;
+                    this.WindowState = WindowState.Maximized;
+                    MainMenu.Visibility = Visibility.Collapsed;
+                    option.Visibility = Visibility.Collapsed;
+                    Player.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    this.WindowState = WindowState.Normal;
+                    MainMenu.Visibility = Visibility.Visible;
+                    option.Visibility = Visibility.Visible;
+                    Player.Visibility = Visibility.Visible;
+                }
+            }
+
+            if (e.Key == System.Windows.Input.Key.H)
+            {
+                if (MainMenu.Visibility == Visibility.Visible)
+                {
+                    MainMenu.Visibility = Visibility.Collapsed;
+                    option.Visibility = Visibility.Collapsed;
+                    Player.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    MainMenu.Visibility = Visibility.Visible;
+                    option.Visibility = Visibility.Visible;
+                    Player.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+
+
     }
 
 }

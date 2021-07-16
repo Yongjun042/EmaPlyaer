@@ -66,12 +66,15 @@ If the Choice scene get played, it will play next scene in any circumstances(exc
 
 ![image](https://drive.google.com/uc?export=view&id=1SmJt4xsoc3NXXeKxvYLz0TslptRLbzFq)
 
-
 ![image](https://drive.google.com/uc?export=view&id=1yqVSVUVGZkdMEdluhDBLdOCL7THRZ1Jt)
 
 선택지 루트를 미리 정하거나 히드 트랙의 확률을 조정할 수 있습니다.
 
 You can choose route or adjust the probability of hidden track.
+
+엔터 버튼을 눌러 전체화면과 창모드로 변경할 수 있고, H버튼을 눌러 UI를 숨기거나 표시할 수 있습니다.
+
+Press Enter for FullScreen/Window Mode, H for hide/show UI.
 
 ## 알려진 버그(Known issue)
 
